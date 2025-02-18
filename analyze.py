@@ -128,7 +128,7 @@ async def analyze_with_chatgpt(data, token):
     - **Factor percentages should never exceed 100%.**
     """
 
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=openai_api_key)
 
     try:
         response = client.chat.completions.create(

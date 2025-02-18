@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-import os  # ✅ Import os to read environment variables
+import os  # ✅ Use environment variables instead of config.py
 from analyze import get_crypto_analysis
 
 # Enable intents
