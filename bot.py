@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-import config
+import os  # ✅ Import os to read environment variables
 from analyze import get_crypto_analysis
 
 # Enable intents
@@ -22,4 +22,10 @@ async def analyze(interaction: discord.Interaction, token: str):
     """Slash command to analyze a cryptocurrency"""
     await get_crypto_analysis(interaction, token)
 
-bot.run(config.DISCORD_BOT_TOKEN)
+# ✅ Use environment variable instead of `config.py`
+bot_token = os.getenv("DISCORD_BOT_TOKEN")  
+
+if not bot_token:
+    raise ValueError("🚨 DISCORD_BOT_TOKEN is not set in the environment variables!")
+
+bot.run(bot_token)
