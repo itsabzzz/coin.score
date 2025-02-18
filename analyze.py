@@ -1,8 +1,9 @@
 import requests
 import discord
 import openai
-import config
 import time
+import os  # ✅ Use environment variables instead of config.py
+
 
 user_request_log = {}  # Store user requests {user_id: timestamp}
 
@@ -35,6 +36,13 @@ async def fetch_crypto_data(token):
 
 async def analyze_with_chatgpt(data, token):
     """Use ChatGPT API to analyze a crypto coin using our ranking system and only display the final analysis"""
+
+    openai_api_key = os.getenv("OPENAI_API_KEY")  # ✅ Get API key from Render's environment variables
+
+    if not openai_api_key:
+        raise ValueError("🚨 OPENAI_API_KEY is not set in the environment variables!")
+
+    client = openai.OpenAI(api_key=openai_api_key)
 
     # Extract only necessary fields
     filtered_data = {
